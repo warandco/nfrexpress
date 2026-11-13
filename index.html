@@ -96,8 +96,24 @@ section.block{padding-block:52px;scroll-margin-top:120px}
 section.block + section.block{border-top:1px solid var(--line)}
 .head{display:flex;flex-direction:column;gap:8px;margin-bottom:26px}
 .head p{color:var(--muted);margin:0;max-width:65ch}
+.head .change-note{color:var(--ink);font-size:.95rem;font-weight:500}
 
-.tools{margin-bottom:8px}
+.tools{margin-bottom:8px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.tools input{flex:1 1 260px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.seg button{font:inherit;font-family:var(--display);text-transform:uppercase;letter-spacing:.08em;font-size:.82rem;padding:10px 16px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.az{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:1fr;column-gap:36px}
+@media (min-width:760px){.az{grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(var(--rows,13),auto)}}
+.az a{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.az a > span{min-width:0}
+.az .badge{width:46px;height:46px}
+.az .badge small{font-size:.44rem;letter-spacing:.06em}
+.az .badge span{font-size:1.15rem}
+.az b{display:block}
+.az a span span{display:block;font-size:.9rem;color:var(--muted)}
+.az a:hover b{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
 .tools input{width:100%;max-width:420px;font:inherit;padding:11px 14px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
 .routes{display:grid;grid-template-columns:1fr;gap:0 36px}
 @media (min-width:760px){.routes{grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(var(--rows,7),auto)}}
@@ -132,9 +148,7 @@ section.block + section.block{border-top:1px solid var(--line)}
 .note p{margin:8px 0 0;color:var(--muted)}
 .walk{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px}
 @media (max-width:760px){.walk{grid-template-columns:1fr}}
-.walk-card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px 22px;min-width:0}
-.walk-card.lift{border-top:4px solid var(--red)}
-.walk-card:not(.lift){border-top:4px solid var(--gold)}
+.walk-card{min-width:0}
 .walk-card h3{margin:6px 0 8px}
 .walk-card p{margin:0 0 10px;color:var(--muted)}
 .walk-card p:last-child{margin-bottom:0}
@@ -331,7 +345,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",
 const q2=s=>encodeURIComponent((s.oneway?"":s.n+" Las Vegas, ")+s.ad);
 const routes=[...new Set(STOPS.map(s=>s.r))];
 const badge=r=>`<div class="badge" aria-label="Route ${r}"><small>ROUTE</small><span>${r}</span></div>`;
-let query="";
+let query="",view="route";
 
 function home(){
   return `<div class="view">
@@ -346,15 +360,16 @@ function home(){
       <div class="gap"><dt>No service</dt><dd>6:00 – 8:15 PM</dd></div>
       <div><dt>Post-event</dt><dd>${SERVICE.post}</dd></div>
       <div><dt>Rodeo starts</dt><dd>${SERVICE.start} nightly</dd></div>
-      <div><dt>Fare</dt><dd>Free</dd></div>
+      <div><dt>Shuttle fare</dt><dd>Free</dd></div>
     </dl>
-    <p class="hero-note">Schedules and departure times are subject to change, so check back here for the latest info.</p>
   </div></section>
 
   <section class="block" id="locations"><div class="wrap">
     <div class="head"><span class="eyebrow">${STOPS.length} pickups · ${routes.length} routes</span><h2>Find your pickup</h2>
-      <p>Tap your hotel for its boarding spot, photo and map. Hotels on the same route share buses on the post-event trips, so ride back on the route you came on.</p></div>
-    <div class="tools"><input id="q" type="search" placeholder="Search hotels" aria-label="Search hotels" value="${esc(query)}"></div>
+      <p>Tap your hotel for its boarding spot, photo and map. Hotels on the same route share buses on the post-event trips, so ride back on the route you came on.</p>
+      <p class="change-note">Departure times are subject to change, so check back here for the latest info.</p></div>
+    <div class="tools"><input id="q" type="search" placeholder="Search hotels" aria-label="Search hotels" value="${esc(query)}">
+      <div class="seg" role="group" aria-label="Sort pickups"><button type="button" data-view="route" aria-pressed="${view==="route"}">By route</button><button type="button" data-view="az" aria-pressed="${view==="az"}">A–Z</button></div></div>
     <div id="board"></div>
   </div></section>
 
@@ -378,7 +393,7 @@ function home(){
         <ul class="incl"><li>Your name and mobile number</li><li>Pickup hotel</li><li>Date(s) you're riding</li><li>Approximate departure time</li><li>Number in your party</li><li>Mobility device (wheelchair or scooter)</li><li>Whether you need a return trip</li></ul>
         ${ADA.confirm?`<p class="muted">${ADA.confirm}</p>`:""}
       </div>
-      <div><span class="eyebrow">After ${ADA.cutoff} or same-day</span><h3 style="margin:6px 0 16px">Request in person</h3>
+      <div class="note"><span class="eyebrow">After ${ADA.cutoff} or same-day</span><h3 style="margin:6px 0 16px">Request in person</h3>
       <ol class="steps">
         <li><div><b>Go to your hotel's pickup area</b><span>Use your hotel's page to find the exact spot.</span></div></li>
         <li><div><b>Find the NFR Express Ambassador</b><span>An Ambassador is posted at every pickup during service hours.</span></div></li>
@@ -408,10 +423,18 @@ function nearbyCards(q){
 
 function board(){
   const q=norm(query);
+  const match=s=>!q||norm(s.n+" "+s.spot).includes(q)||s.k.some(k=>norm(k).startsWith(q));
+  if(view==="az"){
+    const key=s=>norm(s.n.replace(/^The /,""));
+    const list=STOPS.filter(match).sort((a,b)=>key(a).localeCompare(key(b)));
+    const near=nearbyCards(q);
+    const html=(list.length?`<ul class="az" style="--rows:${Math.ceil(list.length/2)}">${list.map(s=>`<li><a href="#${s.id}">${badge(s.r)}<span><b>${esc(s.n)}</b><span>${esc(s.spot)}${s.oneway?" · One-way express shuttle":""}</span></span></a></li>`).join("")}</ul>`:"")+near;
+    return html||`<p class="empty">No pickup matches “${esc(query)}”. Try a shorter name, or ride from the pickup closest to where you're staying.</p>`;
+  }
   const cards=routes.map(r=>{
     const g=STOPS.filter(s=>s.r===r&&(!q||norm(s.n+" "+s.spot).includes(q)||s.k.some(k=>norm(k).startsWith(q))));
     if(!g.length) return "";
-    return `<div class="route">${badge(r)}<div style="min-width:0">${r===1?'<span class="tag">One-way express</span>':""}<ul>${g.map(s=>
+    return `<div class="route">${badge(r)}<div style="min-width:0">${r===1?'<span class="tag">One-way express shuttle</span>':""}<ul>${g.map(s=>
       `<li><a href="#${s.id}"><b>${esc(s.n)}</b><span>${esc(s.spot)}${s.note?" · "+esc(s.note):""}</span></a></li>`).join("")}</ul></div></div>`;
   }).filter(Boolean);
   const near=nearbyCards(q);
@@ -452,7 +475,7 @@ function detail(s){
             <dt>Pre-event</dt><dd>${SERVICE.pre}${s.freq?`<span class="sub">Departures: ${esc(s.freq.replace(/^Every/,"every").replace(/^Hourly/,"hourly"))}</span>`:""}</dd>
             <dt>Post-event</dt><dd>${s.oneway?"No return service":SERVICE.post+" from Thomas &amp; Mack Center<span class=\"sub\">Buses run continuously</span>"}</dd>
           </dl>
-          <p class="fine">Schedules and departure times are subject to change, so check back here for the latest info.</p>
+          <p class="fine">Departure times are subject to change, so check back here for the latest info.</p>
         </div>
       </div>
       <div class="media">
@@ -474,6 +497,7 @@ function wire(){
   const b=document.getElementById("board");if(!b)return;
   b.innerHTML=board();
   document.getElementById("q").addEventListener("input",e=>{query=e.target.value;b.innerHTML=board()});
+  document.querySelectorAll(".seg button").forEach(btn=>btn.addEventListener("click",()=>{view=btn.dataset.view;document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===btn));b.innerHTML=board()}));
 }
 let onDetail=false;
 function track(){try{(window.dataLayer=window.dataLayer||[]).push({event:"nfr_page_view",page_path:location.pathname+location.hash,page_title:document.title});if(typeof gtag==="function")gtag("event","page_view",{page_location:location.href,page_title:document.title})}catch(_){}}

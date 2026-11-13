@@ -103,6 +103,15 @@ section.block + section.block{border-top:1px solid var(--line)}
 .steps span{color:var(--muted);font-size:.95rem}
 .note{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--red);border-radius:6px;padding:20px 22px}
 .note p{margin:8px 0 0;color:var(--muted)}
+.walk{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px}
+@media (max-width:760px){.walk{grid-template-columns:1fr}}
+.walk-card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px 22px;min-width:0}
+.walk-card.lift{border-top:4px solid var(--red)}
+.walk-card:not(.lift){border-top:4px solid var(--gold)}
+.walk-card h3{margin:6px 0 8px}
+.walk-card p{margin:0 0 10px;color:var(--muted)}
+.walk-card p:last-child{margin-bottom:0}
+.walk-card .caution{background:var(--gold-soft);color:var(--ink);border-radius:4px;padding:10px 12px;font-size:.93rem}
 .contact{display:grid;gap:12px;margin:14px 0 18px}
 .contact dt{font-family:var(--display);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .contact dd{margin:2px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:1.15rem;font-weight:600;overflow-wrap:anywhere}
@@ -167,7 +176,7 @@ footer b{color:var(--navy-ink)}
     <a class="brand" href="#"><span class="seal">NFR<br>EXP</span><span><b>NFR Express</b><small>Free shuttle · Dec 3–12, 2026</small></span></a>
     <nav aria-label="Sections">
       <a href="#locations" data-nav="locations">Pickups</a>
-      <a href="#accessible" data-nav="accessible">ADA Buses</a>
+      <a href="#accessible" data-nav="accessible">ADA Lift Buses</a>
       <a href="#questions" data-nav="questions">FAQ</a>
     </nav>
   </div>
@@ -278,6 +287,7 @@ const FAQ = [
   ["Does the Cowboy Christmas shuttle bring me back to the convention center?","No. Route 1 is a one-way express to the Thomas & Mack Center. Buses never return to the Las Vegas Convention Center, so plan another way back if your car is parked there."],
   ["My hotel isn't listed. Can I still ride?","Yes. Buses only stop at the locations listed here, so ride from whichever one is closest to where you're staying."],
   ["Can I bring drinks on board?","Non-alcoholic drinks in plastic bottles or cups are fine. Aluminum bottles are allowed, and wide-mouth cups are allowed with a lid. No glass and no alcohol on the bus."],
+  ["I use a wheelchair or walker but can climb steps. Do I need a lift bus?","No. You can board any bus. The driver will store your wheelchair, walker or scooter in the luggage compartment under the bus. Lift buses are for riders who can't walk onto the bus under their own power. A very heavy scooter may need help from someone in your party to load."],
   ["Is there room for strollers?","Yes. Fold your stroller and hand it to the driver when you board; it rides in an under-bus compartment. Ask the driver for it when you get off."],
   ["I left something on the bus. Where do I find it?","Items found on buses go straight to Lost & Found at the Thomas & Mack Center."],
   ["How do I get back if I stay after the last bus?","Rideshare (Lyft, Uber) and taxis are available at the front of the Thomas & Mack Center."]
@@ -312,8 +322,15 @@ function home(){
   </div></section>
 
   <section class="block" id="accessible"><div class="wrap">
-    <div class="head"><span class="eyebrow">Accessibility</span><h2>Requesting an ADA-accessible bus</h2>
-      <p>Wheelchair-accessible, ADA-compliant buses run all ten nights. Request one ahead of time by ${ADA.cutoff} on the day you ride. After ${ADA.cutoff}, requests are taken in person at your pickup.</p></div>
+    <div class="head"><span class="eyebrow">Accessibility</span><h2>Wheelchair lift buses</h2>
+      <p>Lift-equipped, ADA-compliant buses run all ten nights for riders who can't walk onto the bus under their own power. Request one ahead of time by ${ADA.cutoff} on the day you ride. After ${ADA.cutoff}, requests are taken in person at your pickup.</p></div>
+    <div class="walk">
+      <div class="walk-card"><span class="eyebrow">Can walk up the bus steps?</span><h3>Board any bus</h3>
+        <p>If you can climb the steps on your own, you don't need a lift bus. Hand your wheelchair, walker or scooter to the driver and it rides in the luggage compartment under the bus. Ask the driver for it when you get off.</p>
+        <p class="caution"><b>Heavy scooters:</b> drivers load mobility devices by hand. A very heavy scooter may be too much for the driver to lift alone, so someone in your party may need to help.</p></div>
+      <div class="walk-card lift"><span class="eyebrow">Can't walk onto the bus?</span><h3>Request a lift bus</h3>
+        <p>Stay in your wheelchair or scooter and board on the bus's wheelchair lift. Request one using either option below.</p></div>
+    </div>
     <div class="ada">
       <div class="note"><span class="eyebrow">Before ${ADA.cutoff} on the day you ride</span><h3>Request in advance</h3>
         <dl class="contact">
@@ -321,15 +338,15 @@ function home(){
           <div><dt>Phone</dt><dd>${ADA.phone?`<a href="tel:${ADA.phone.replace(/[^0-9+]/g,"")}">${ADA.phone}</a><button type="button" class="copy" data-copy="${ADA.phone}">Copy</button><small>Leave a voicemail with the details below.</small>`:"<span class='pending'>Number coming soon</span>"}</dd></div>
         </dl>
         <p class="incl-h"><b>Include in your email or voicemail</b></p>
-        <ul class="incl"><li>Your name and mobile number</li><li>Pickup hotel</li><li>Date(s) you're riding</li><li>Approximate departure time</li><li>Number in your party</li><li>Mobility device (wheelchair, scooter, walker)</li><li>Whether you need a return trip</li></ul>
+        <ul class="incl"><li>Your name and mobile number</li><li>Pickup hotel</li><li>Date(s) you're riding</li><li>Approximate departure time</li><li>Number in your party</li><li>Mobility device (wheelchair or scooter)</li><li>Whether you need a return trip</li></ul>
         ${ADA.confirm?`<p class="muted">${ADA.confirm}</p>`:""}
       </div>
       <div><span class="eyebrow">After ${ADA.cutoff} or same-day</span><h3 style="margin:6px 0 16px">Request in person</h3>
       <ol class="steps">
         <li><div><b>Go to your hotel's pickup area</b><span>Use your hotel's page to find the exact spot.</span></div></li>
         <li><div><b>Find the W Transportation Group Ambassador</b><span>An Ambassador is posted at every pickup during service hours.</span></div></li>
-        <li><div><b>Ask for an accessible bus</b><span>Staff will dispatch an ADA-compliant bus to your location as soon as possible. Tell them how many are in your party.</span></div></li>
-        <li><div><b>Plan your ride home</b><span>At the Thomas &amp; Mack Center loading area, tell staff you need an accessible bus back to your hotel.</span></div></li>
+        <li><div><b>Ask for a lift bus</b><span>Staff will dispatch a lift-equipped bus to your location as soon as possible. Tell them how many are in your party.</span></div></li>
+        <li><div><b>Plan your ride home</b><span>At the Thomas &amp; Mack Center loading area, tell staff you need a lift bus back to your hotel.</span></div></li>
       </ol></div>
     </div>
   </div></section>

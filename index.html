@@ -144,6 +144,8 @@ section.block + section.block{border-top:1px solid var(--line)}
 
 .arena{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
 @media (max-width:760px){.arena{grid-template-columns:1fr;gap:22px}}
+.arena-photo{margin:0 0 28px}
+.arena-photo img{width:100%;height:auto;display:block;border-radius:6px}
 .arena>div{min-width:0;border-top:3px solid var(--gold-hi);padding-top:14px}
 .arena h3{margin:6px 0 6px;font-size:1.1rem}
 .arena p{margin:0;color:var(--muted)}
@@ -408,6 +410,7 @@ function home(){
   <section class="block" id="arena"><div class="wrap">
     <div class="head"><span class="eyebrow">Drop-off &amp; return</span><h2>At Thomas &amp; Mack Center</h2>
       <p>Buses drop you off and pick you up in the same shuttle loading area.</p></div>
+    <figure class="arena-photo"><img src="photos/arena-loading.jpg" width="1600" height="727" loading="lazy" alt="Riders walking along the barricades to their buses in the Thomas &amp; Mack Center shuttle loading area at night, with route numbers posted in the bus windshields"><figcaption>The shuttle loading area after the rodeo. Route numbers are posted on signs and in the bus windshields.</figcaption></figure>
     <div class="arena">
       <div><span class="eyebrow">After the rodeo</span><h3>Walk through the Pro Rodeo Zone</h3><p>When the NFR ends, walk through the Pro Rodeo Zone to the shuttle loading area. Look for your route number sign to find the bus back to your hotel.</p></div>
       <div><span class="eyebrow">Return service</span><h3>${SERVICE.post}</h3><p>Buses leave continuously. The last buses depart at 9:45 PM.</p></div>

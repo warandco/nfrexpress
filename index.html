@@ -214,6 +214,12 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
 footer{background:var(--navy);color:#A3A9B8;font-size:.88rem;border-top:4px solid var(--red)}
 footer .wrap{padding-block:30px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between}
 footer b{color:var(--navy-ink)}
+.legal-line{margin-top:6px;font-size:.82rem}
+.legal{max-width:760px}
+.legal h1{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:clamp(2rem,5vw,2.8rem);color:var(--gold)}
+.legal .updated{color:var(--muted);margin:6px 0 28px}
+.legal h2{font-family:var(--body);text-transform:none;letter-spacing:0;font-size:1.15rem;font-weight:700;color:var(--ink);margin:28px 0 6px}
+.legal p{margin:0 0 12px;max-width:65ch}
 @media (prefers-reduced-motion:no-preference){.view{animation:in .25s ease-out}@keyframes in{from{transform:translateY(6px)}to{transform:none}}}
 </style>
 
@@ -233,7 +239,7 @@ footer b{color:var(--navy-ink)}
 
 <footer>
   <div class="wrap">
-    <div><b>NFR Express shuttle</b> operated by <a href="https://www.thewtg.com" target="_blank" rel="noopener">W Transportation Group</a></div>
+    <div><b>NFR Express shuttle</b> operated by <a href="https://www.thewtg.com" target="_blank" rel="noopener">W Transportation Group</a><div class="legal-line">© 2026 W Transportation Group, LLC · <a href="#privacy">Privacy Notice</a></div></div>
     <div>All schedules subject to change. Tickets, events and hotel offers: <a href="https://nfrexperience.com/" target="_blank" rel="noopener">nfrexperience.com</a></div>
   </div>
 </footer>
@@ -489,6 +495,29 @@ function detail(s){
   </div></section></div>`;
 }
 
+
+function privacy(){
+  return `<div class="view"><section class="block"><div class="wrap legal">
+    <a class="crumb" href="#">← Back to NFR Express</a>
+    <h1>Privacy Notice</h1>
+    <p class="updated">Last updated November 12, 2026</p>
+    <h2>Who we are</h2>
+    <p>NFRExpress.com is operated by W Transportation Group, LLC, Las Vegas, Nevada, to give riders information about the NFR Express shuttle during the Wrangler National Finals Rodeo.</p>
+    <h2>Information this site collects</h2>
+    <p>This site doesn't ask you to create an account or fill out any forms. We use Google Analytics to understand how riders use the site, such as which pages are viewed, the type of device and browser, the general area a visit comes from and the site that referred you. Google Analytics uses cookies to collect this information. We use it only to improve the site.</p>
+    <p>You can learn how Google uses this information at <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">policies.google.com/technologies/partner-sites</a>. To opt out, block cookies in your browser or install the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics opt-out add-on</a>.</p>
+    <h2>Wheelchair lift bus requests</h2>
+    <p>If you email or call to request a lift bus, we use the details you give us (such as your name, phone number, email address and trip details) only to arrange your ride and contact you about it. We share them only with the transportation team and bus operators working the event, and we don't keep them longer than needed for the event.</p>
+    <h2>We don't sell your information</h2>
+    <p>We don't sell or rent personal information to anyone. Nevada residents may still send us a request not to sell their covered information, using the contact below.</p>
+    <h2>Other websites</h2>
+    <p>Links to other sites, such as NFRExperience.com and Google Maps, are covered by those sites' own privacy policies.</p>
+    <h2>Children</h2>
+    <p>This site isn't directed to children under 13, and we don't knowingly collect their information.</p>
+    <h2>Changes and contact</h2>
+    <p>If we change this notice, we'll update the date above. Questions? Email <a href="mailto:${ADA.email}">${ADA.email}</a>.</p>
+  </div></section></div>`;
+}
 const app=document.getElementById("app");
 document.addEventListener("click",e=>{const b=e.target.closest(".copy");if(!b)return;const t=b.dataset.copy,done=()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy",1500)};
   try{navigator.clipboard.writeText(t).then(done,()=>{sel(b)})}catch(_){sel(b)}});
@@ -505,6 +534,7 @@ function route(){
   const h=decodeURIComponent(location.hash.slice(1)),s=STOPS.find(x=>x.id===h);
   document.querySelectorAll("[data-nav]").forEach(a=>a.removeAttribute("aria-current"));
   if(s){app.innerHTML=detail(s);document.title=s.n+" · NFR Express";window.scrollTo(0,0);onDetail=true;return}
+  if(h==="privacy"){app.innerHTML=privacy();document.title="Privacy Notice · NFR Express";window.scrollTo(0,0);onDetail=true;return}
   document.title="NFR Express Rider Guide";
   if(onDetail||!app.innerHTML){app.innerHTML=home();wire();onDetail=false}
   const t=h&&document.getElementById(h);

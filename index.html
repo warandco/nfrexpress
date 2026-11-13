@@ -94,6 +94,7 @@ footer a{color:var(--navy-ink)}
 
 section.block{padding-block:52px;scroll-margin-top:120px}
 section.block + section.block{border-top:1px solid var(--line)}
+.ada-band{background:var(--surface);border-bottom:1px solid var(--line)}
 .head{display:flex;flex-direction:column;gap:8px;margin-bottom:26px}
 .head p{color:var(--muted);margin:0;max-width:65ch}
 .head .change-note{color:var(--ink);font-size:.95rem;font-weight:500}
@@ -169,6 +170,8 @@ section.block + section.block{border-top:1px solid var(--line)}
 .faq summary::after{content:"+";position:absolute;right:6px;top:12px;font-family:var(--display);font-size:1.5rem;color:var(--gold)}
 .faq details[open] summary::after{content:"–"}
 .faq details p{margin:0 0 18px;color:var(--muted);max-width:65ch}
+.who-list{display:grid;gap:8px}
+.who-list b{color:var(--ink);font-weight:600}
 
 .crumb{display:inline-block;font-family:var(--display);text-transform:uppercase;letter-spacing:.08em;font-size:.85rem;text-decoration:none;color:var(--muted);margin-bottom:18px}
 .crumb:hover{color:var(--ink)}
@@ -240,7 +243,7 @@ footer b{color:var(--navy-ink)}
 <footer>
   <div class="wrap">
     <div><b>NFR Express shuttle</b> operated by <a href="https://www.thewtg.com" target="_blank" rel="noopener">W Transportation Group</a><div class="legal-line">© 2026 W Transportation Group, LLC · <a href="#privacy">Privacy Notice</a></div></div>
-    <div>All schedules subject to change. Tickets, events and hotel offers: <a href="https://nfrexperience.com/" target="_blank" rel="noopener">nfrexperience.com</a></div>
+    <div>Tickets, events and hotel offers: <a href="https://nfrexperience.com/" target="_blank" rel="noopener">nfrexperience.com</a></div>
   </div>
 </footer>
 
@@ -334,8 +337,8 @@ const byId=id=>STOPS.find(s=>s.id===id);
 const FAQ = [
   ["Do I need a ticket to ride?","No. The NFR Express is free for all rodeo fans. Head to any pickup location below."],
   ["What are the service hours?",`Pre-event buses run ${SERVICE.pre} to the Thomas & Mack Center. Post-event buses run ${SERVICE.post} back to the host hotels. Every performance starts at ${SERVICE.start}.`],
-  ["How often do buses leave my hotel?",`Before the rodeo, it depends on the stop: some depart every 10 to 20 minutes, others hourly at 4:00, 5:00 and 6:00 PM. <a href="#locations">Find your hotel</a> to see its departure schedule. After the rodeo, buses leave the Thomas & Mack Center continuously from 8:15 to 9:45 PM. An NFR Express Ambassador is posted at every pickup if you have questions.`,true],
-  ["What does the route number mean?","Hotels on the same route share buses after the rodeo. Ride back on the same route number you came on, and the bus will stop at each hotel on that route."],
+  ["How often do buses leave my hotel?",`Before the rodeo, it depends on the stop: some depart every 10 to 20 minutes, others hourly at 4:00, 5:00 and 6:00 PM. <a href="#locations">Find your hotel</a> to see its departure schedule. After the rodeo, buses leave the Thomas & Mack Center continuously from 8:15 to 9:45 PM. An NFR Express Ambassador is posted at every pickup if you have questions. Departure times are subject to change, so check back here for the latest info.`,true],
+  ["What does the route number mean?","Hotels on the same route share buses after the rodeo. Ride back on the same route number you came on, and the bus will stop at each hotel on that route. Look for your route sign in the Pro Rodeo Zone to return to your hotel."],
   ["Do buses run during the rodeo?","No. There is no shuttle service between 6:00 and 8:15 PM. If you arrive after 6:00 PM or want to leave before 8:15 PM, use rideshare (Lyft, Uber) or a taxi. Rideshare and taxis are available at the front of the Thomas & Mack Center."],
   ["When does the last bus leave the Thomas & Mack Center?","The last buses depart at 9:45 PM, December 3 to 12. All schedules are subject to change."],
   ["Does the Cowboy Christmas shuttle bring me back to the convention center?","No. Route 1 is a one-way express to the Thomas & Mack Center. Buses never return to the Las Vegas Convention Center, so plan another way back if your car is parked there."],
@@ -344,7 +347,8 @@ const FAQ = [
   ["I use a wheelchair or walker but can climb steps. Do I need a lift bus?","No. You can board any bus. The driver will store your wheelchair, walker or scooter in the luggage compartment under the bus. Lift buses are for riders who can't walk onto the bus under their own power. A very heavy scooter may need help from someone in your party to load."],
   ["Is there room for strollers?","Yes. Fold your stroller and hand it to the driver when you board; it rides in an under-bus compartment. Ask the driver for it when you get off."],
   ["I left something on the bus. Where do I find it?","Items found on buses go straight to Lost & Found at the Thomas & Mack Center."],
-  ["How do I get back if I stay after the last bus?","Rideshare (Lyft, Uber) and taxis are available at the front of the Thomas & Mack Center."]
+  ["How do I get back if I stay after the last bus?","Rideshare (Lyft, Uber) and taxis are available at the front of the Thomas & Mack Center."],
+  ["Who do I contact with questions?",`<span class="who-list"><span><b>Day-of shuttle help:</b> the NFR Express Ambassador at your pickup.</span><span><b>Wheelchair lift bus requests:</b> <a href="#accessible">${ADA.email} or ${ADA.phone}</a>, before ${ADA.cutoff} on the day you ride.</span><span><b>Lost items:</b> Lost &amp; Found at the Thomas &amp; Mack Center.</span><span><b>Tickets, schedules and event info:</b> <a href="https://nfrexperience.com/" target="_blank" rel="noopener">NFRExperience.com</a>.</span><span><b>Anything else about the shuttle:</b> <a href="mailto:contact@thewtg.com">contact@thewtg.com</a>.</span></span>`,true]
 ];
 
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -372,14 +376,13 @@ function home(){
 
   <section class="block" id="locations"><div class="wrap">
     <div class="head"><span class="eyebrow">${STOPS.length} pickups · ${routes.length} routes</span><h2>Find your pickup</h2>
-      <p>Tap your hotel for its boarding spot, photo and map. Hotels on the same route share buses on the post-event trips, so ride back on the route you came on.</p>
-      <p class="change-note">Departure times are subject to change, so check back here for the latest info.</p></div>
+      <p>Tap your hotel for its boarding spot, photo and map. Hotels on the same route share buses on the post-event trips, so ride back on the route you came on.</p></div>
     <div class="tools"><input id="q" type="search" placeholder="Search hotels" aria-label="Search hotels" value="${esc(query)}">
       <div class="seg" role="group" aria-label="Sort pickups"><button type="button" data-view="route" aria-pressed="${view==="route"}">By route</button><button type="button" data-view="az" aria-pressed="${view==="az"}">A–Z</button></div></div>
     <div id="board"></div>
   </div></section>
 
-  <section class="block" id="accessible"><div class="wrap">
+  <section class="block ada-band" id="accessible"><div class="wrap">
     <div class="head"><span class="eyebrow">Accessibility</span><h2>Wheelchair lift buses</h2>
       <p>Lift-equipped, ADA-compliant buses run all ten nights for riders who can't walk onto the bus under their own power. Request one ahead of time by ${ADA.cutoff} on the day you ride. After ${ADA.cutoff}, requests are taken in person at your pickup.</p></div>
     <div class="walk">
@@ -515,7 +518,7 @@ function privacy(){
     <h2>Children</h2>
     <p>This site isn't directed to children under 13, and we don't knowingly collect their information.</p>
     <h2>Changes and contact</h2>
-    <p>If we change this notice, we'll update the date above. Questions? Email <a href="mailto:${ADA.email}">${ADA.email}</a>.</p>
+    <p>If we change this notice, we'll update the date above. Questions? Email <a href="mailto:contact@thewtg.com">contact@thewtg.com</a>.</p>
   </div></section></div>`;
 }
 const app=document.getElementById("app");

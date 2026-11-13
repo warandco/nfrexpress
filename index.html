@@ -24,7 +24,11 @@ gtag('config','G-7HW8YYGVD2');
 <meta property="og:description" content="Free NFR Express shuttle to the Thomas &amp; Mack Center, Dec 3–12, 2026. Pickup spots, photos and maps for every stop, ADA bus requests and rider FAQ.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.nfrexpress.com/">
-<meta property="og:image" content="https://www.nfrexpress.com/photos/park-mgm.jpg">
+<meta property="og:image" content="https://www.nfrexpress.com/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="NFR Express: official free shuttle of the 2026 Wrangler National Finals Rodeo. Dec 3–12, 25 pickups, free. nfrexpress.com">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#13294B">
 <link rel="canonical" href="https://www.nfrexpress.com/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2313294B' stroke='%23C9A86A' stroke-width='4'/%3E%3Crect x='17' y='18' width='30' height='24' rx='4' fill='%23C9A86A'/%3E%3Crect x='21' y='22' width='22' height='9' rx='1' fill='%2313294B'/%3E%3Ccircle cx='24' cy='45' r='3' fill='%23C9A86A'/%3E%3Ccircle cx='40' cy='45' r='3' fill='%23C9A86A'/%3E%3C/svg%3E">
@@ -201,6 +205,7 @@ section.block + section.block{border-top:1px solid var(--line)}
 .kv dt:first-of-type{padding-top:7px}
 .kv dd{margin:0;font-variant-numeric:tabular-nums}
 .kv .sub{display:block;font-size:.88rem;color:var(--muted)}
+.kv .tip{color:var(--ink);font-weight:500;margin-top:6px}
 .media{display:grid;gap:22px}
 figure{margin:0}
 .ph{aspect-ratio:4/3;max-width:100%;border-radius:6px;border:1px dashed var(--line);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:.9rem;padding:16px;
@@ -359,6 +364,7 @@ const FAQ = [
   ["I use a wheelchair or walker but can climb steps. Do I need a lift bus?","No. You can board any bus. The driver will store your wheelchair, walker or scooter in the luggage compartment under the bus. Lift buses are for riders who can't walk onto the bus under their own power. A very heavy scooter may need help from someone in your party to load."],
   ["Is there room for strollers?","Yes. Fold your stroller and hand it to the driver when you board; it rides in an under-bus compartment. Ask the driver for it when you get off."],
   ["Can I bring drinks on board?","Non-alcoholic drinks in plastic bottles or cups are fine. Aluminum bottles are allowed, and wide-mouth cups are allowed with a lid. No glass and no alcohol on the bus."],
+  ["Where do I catch the bus after the rodeo?","After the NFR ends, walk through the Pro Rodeo Zone to the shuttle loading area. It’s the same place the bus dropped you off."],
   ["What does the route number mean?","Hotels on the same route share buses after the rodeo. Ride back on the same route number you came on, and the bus will stop at each hotel on that route. Look for your route sign in the Pro Rodeo Zone to return to your hotel."],
   ["Do buses run during the rodeo?","No. There is no shuttle service between 6:00 and 8:15 PM. If you arrive after 6:00 PM or want to leave before 8:15 PM, use rideshare (Lyft, Uber) or a taxi. Rideshare and taxis are available at the front of the Thomas & Mack Center."],
   ["When does the last bus leave the Thomas & Mack Center?","The last buses depart at 9:45 PM, December 3 to 12. All schedules are subject to change."],
@@ -496,7 +502,7 @@ function detail(s){
         <div class="panel"><span class="eyebrow">Service</span>
           <dl class="kv">
             <dt>Route</dt><dd>Route ${s.r}${s.oneway?`<span class="sub"><strong>One way only</strong> to Thomas &amp; Mack Center. No return to the convention center.</span>`:mates.length?`<span class="sub">Before the rodeo: direct to Thomas &amp; Mack Center.<br>After the rodeo: also stops at ${mates.map(m=>`<a href="#${m.id}">${esc(m.n)}</a>`).join(" and ")}.</span>`:`<span class="sub">Direct to Thomas &amp; Mack Center and back.</span>`}</dd>
-            <dt>Pre-event</dt><dd>${SERVICE.pre}${s.freq?`<span class="sub">Departures: ${esc(s.freq.replace(/^Every/,"every").replace(/^Hourly/,"hourly"))}</span>`:""}</dd>
+            <dt>Pre-event</dt><dd>${SERVICE.pre}${s.freq?`<span class="sub">Departures: ${esc(s.freq.replace(/^Every/,"every").replace(/^Hourly/,"hourly"))}</span>`:""}${/^Hourly/.test(s.freq||"")?`<span class="sub tip">Take the 4:00 or 5:00 PM bus to arrive before the 5:45 PM start.</span>`:""}</dd>
             <dt>Post-event</dt><dd>${s.oneway?"No return service":SERVICE.post+" from Thomas &amp; Mack Center<span class=\"sub\">Buses run continuously</span>"}</dd>
           </dl>
           <p class="fine">Departure times are subject to change, so check back here for the latest info.</p>

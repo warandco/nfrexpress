@@ -292,9 +292,9 @@ let query="";
 function home(){
   return `<div class="view">
   <section class="hero"><div class="wrap">
-    <div><div class="eyebrow">The free shuttle of the Wrangler NFR</div>
-      <h1>Ride the NFR Express to the Thomas &amp; Mack</h1>
-      <p>${STOPS.length} pickup locations on ${routes.length} routes, every performance night. Pick your hotel to see exactly where to board, with a photo of the pickup area and a property map.</p></div>
+    <div><div class="eyebrow">The free shuttle of the 2026 Wrangler National Finals Rodeo</div>
+      <h1>Ride the NFR Express to Thomas &amp; Mack Center</h1>
+      <p>${STOPS.length} pickup locations on ${routes.length} routes, every performance night. Pick your hotel to see exactly where to board, with details specific to each location.</p></div>
     <dl class="facts">
       <div><dt>Dates</dt><dd>Dec 3 – 12, 2026</dd></div>
       <div><dt>Pre-event</dt><dd>${SERVICE.pre}</dd></div>
@@ -306,7 +306,7 @@ function home(){
 
   <section class="block" id="locations"><div class="wrap">
     <div class="head"><span class="eyebrow">${STOPS.length} pickups · ${routes.length} routes</span><h2>Find your pickup</h2>
-      <p>Tap your hotel for its boarding spot, photo and map. Hotels on the same route share buses, so ride home on the route you came on.</p></div>
+      <p>Tap your hotel for its boarding spot, photo and map. Hotels on the same route share buses on the post-event trips, so ride back on the route you came on.</p></div>
     <div class="tools"><input id="q" type="search" placeholder="Search hotels" aria-label="Search hotels" value="${esc(query)}"></div>
     <div id="board"></div>
   </div></section>

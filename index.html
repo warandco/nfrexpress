@@ -2,6 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5W8P5B72');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7HW8YYGVD2"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-7HW8YYGVD2');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>NFR Express Rider Guide</title>
 <meta name="description" content="Free NFR Express shuttle to the Thomas &amp; Mack Center, Dec 3–12, 2026. Pickup spots, photos and maps for every stop, ADA bus requests and rider FAQ.">
@@ -18,6 +33,9 @@
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5W8P5B72" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <style>
 /* Layout: Wrangler-NFR feel — navy header band with gold condensed display type, red rule, route-badge stop board, per-stop detail view routed by #hash */
 :root{
@@ -59,10 +77,19 @@ h3{font-size:1.05rem;font-weight:700}
 .hero .eyebrow{color:var(--gold-hi)}
 .hero h1{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(2.3rem,6.5vw,4.2rem);line-height:1;letter-spacing:.01em;color:var(--gold-hi);margin-top:10px}
 .hero p{max-width:52ch;color:#C8CCD6;margin:16px 0 0}
+.hero-link{display:inline-block;margin-top:20px;padding:11px 18px;border:1px solid var(--gold-hi);border-radius:4px;color:var(--gold-hi);text-decoration:none;font-family:var(--display);text-transform:uppercase;letter-spacing:.08em;font-size:.88rem}
+.hero-link:hover{background:var(--gold-hi);color:var(--navy)}
+.hero-note{grid-column:1/-1;margin:0!important;max-width:none!important;font-size:.92rem;color:#C8CCD6;border-top:1px solid rgba(201,168,106,.35);padding-top:16px}
+.fine{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:.88rem;color:var(--muted)}
+.top nav a.ext{border:1px solid rgba(201,168,106,.6);color:var(--gold-hi);margin-left:6px}
+.top nav a.ext:hover{background:var(--gold-hi);color:var(--navy)}
+@media (max-width:600px){.top nav a.ext{display:none}}
+footer a{color:var(--navy-ink)}
 .facts{display:grid;gap:1px;background:rgba(201,168,106,.35);border:1px solid rgba(201,168,106,.35);border-radius:6px;overflow:hidden;margin:0}
 .facts div{background:var(--navy);padding:13px 16px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
 .facts dt{font-family:var(--display);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:#9EA6B8}
 .facts dd{margin:0;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.facts .gap dt,.facts .gap dd{color:#E7A0A9}
 @media (max-width:760px){.hero .wrap{grid-template-columns:1fr}}
 
 section.block{padding-block:52px;scroll-margin-top:120px}
@@ -75,7 +102,7 @@ section.block + section.block{border-top:1px solid var(--line)}
 .routes{display:grid;grid-template-columns:1fr;gap:0 36px}
 @media (min-width:760px){.routes{grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(var(--rows,7),auto)}}
 .route{display:grid;grid-template-columns:56px 1fr;gap:14px;padding:18px 0;border-bottom:1px solid var(--line);align-items:start}
-.badge{width:56px;height:56px;border-radius:50%;border:2px solid var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--display);line-height:1}
+.badge{flex:none;width:56px;height:56px;border-radius:50%;border:2px solid var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--display);line-height:1}
 .badge small{font-size:.58rem;letter-spacing:.12em;font-weight:600}
 .badge span{font-size:1.45rem;font-weight:600}
 .route .tag{font-family:var(--display);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:2px}
@@ -148,8 +175,13 @@ section.block + section.block{border-top:1px solid var(--line)}
 .spot-note{color:var(--muted);margin-top:4px}
 .spot-desc{margin:8px 0 0;max-width:60ch}
 .dirs{margin:14px 0 0;padding-left:20px;display:grid;gap:6px}
-.kv{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;margin:0}
-.kv dt{font-family:var(--display);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.kv{display:grid;grid-template-columns:auto 1fr;column-gap:0;margin:0}
+.kv dd{padding-left:20px}
+.kv dt,.kv dd{padding-block:16px;border-top:1px solid var(--line)}
+.kv dt:first-of-type,.kv dd:first-of-type{border-top:0;padding-top:4px}
+.kv .sub{margin-top:4px;line-height:1.5}
+.kv dt{font-family:var(--display);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:19px}
+.kv dt:first-of-type{padding-top:7px}
 .kv dd{margin:0;font-variant-numeric:tabular-nums}
 .kv .sub{display:block;font-size:.88rem;color:var(--muted)}
 .media{display:grid;gap:22px}
@@ -178,6 +210,7 @@ footer b{color:var(--navy-ink)}
       <a href="#locations" data-nav="locations">Pickups</a>
       <a href="#accessible" data-nav="accessible">ADA Lift Buses</a>
       <a href="#questions" data-nav="questions">FAQ</a>
+      <a class="ext" href="https://nfrexperience.com/" target="_blank" rel="noopener">NFR Experience ↗</a>
     </nav>
   </div>
 </header>
@@ -186,8 +219,8 @@ footer b{color:var(--navy-ink)}
 
 <footer>
   <div class="wrap">
-    <div><b>NFR Express shuttle</b> operated by W Transportation Group</div>
-    <div>All schedules subject to change. Tickets, events and hotel offers: nfrexperience.com</div>
+    <div><b>NFR Express shuttle</b> operated by <a href="https://www.thewtg.com" target="_blank" rel="noopener">W Transportation Group</a></div>
+    <div>All schedules subject to change. Tickets, events and hotel offers: <a href="https://nfrexperience.com/" target="_blank" rel="noopener">nfrexperience.com</a></div>
   </div>
 </footer>
 
@@ -198,7 +231,7 @@ footer b{color:var(--navy-ink)}
 const ADA = {email:"ada@thewtg.com", phone:"(702) 960-1295", cutoff:"2:00 PM", confirm:"We’ll confirm your request by phone or email."}; /* phone e.g. "(702) 555-0100"; confirm e.g. "We'll confirm your request by phone or email." */
 const SERVICE = {pre:"4:00 – 6:00 PM", post:"8:15 – 9:45 PM", start:"5:45 PM"};
 const STOPS = [
-  {r:1, id:"cowboy-christmas", n:"Cowboy Christmas", spot:"South Hall, East Entrance", note:"Las Vegas Convention Center", desc:"The entrance closest to the Vegas Loop South Station and University Center Dr.", freq:"Every 30 minutes", g:"https://maps.app.goo.gl/BUzCVEpqfEiksTGK8", ad:"Las Vegas Convention Center, 3150 Paradise Rd, Las Vegas, NV 89109", oneway:true},
+  {r:1, id:"cowboy-christmas", n:"Cowboy Christmas presented by Texas Precious Metals", spot:"South Hall, East Entrance", note:"Las Vegas Convention Center", desc:"The entrance closest to the Vegas Loop South Station and University Center Dr.", freq:"Every 30 minutes", g:"https://maps.app.goo.gl/BUzCVEpqfEiksTGK8", ad:"Las Vegas Convention Center, South Hall, 3150 Paradise Rd, Las Vegas, NV 89109", oneway:true},
   {r:2, id:"mgm-grand", n:"MGM Grand", spot:"Main Entrance", freq:"Every 10–20 minutes", g:"https://maps.app.goo.gl/pJMznAmcPTyLS5Cs8", ad:"3799 Las Vegas Blvd S, Las Vegas, NV 89109"},
   {r:3, id:"park-mgm", n:"Park MGM", spot:"North Entrance (Uber Lot)", desc:"Exit the lobby before the parking garage escalators.", freq:"Every 20–30 minutes", g:"https://maps.app.goo.gl/iCVM1TERm9GGjU717", ad:"3770 Las Vegas Blvd S, Las Vegas, NV 89109"},
   {r:4, id:"the-orleans", n:"The Orleans", spot:"Valet Entrance", desc:"The bus loads just outside the porte-cochère.", freq:"Every 15–20 minutes", g:"https://maps.app.goo.gl/Kf26f1ou2HECoPFv6", ad:"4500 W Tropicana Ave, Las Vegas, NV 89103"},
@@ -281,8 +314,9 @@ const byId=id=>STOPS.find(s=>s.id===id);
 const FAQ = [
   ["Do I need a ticket to ride?","No. The NFR Express is free for all rodeo fans. Head to any pickup location below."],
   ["What are the service hours?",`Pre-event buses run ${SERVICE.pre} to the Thomas & Mack Center. Post-event buses run ${SERVICE.post} back to the host hotels. Every performance starts at ${SERVICE.start}.`],
-  ["How often do buses leave my hotel?","Before the rodeo, it depends on the stop: some depart every 10 to 20 minutes, others hourly at 4:00, 5:00 and 6:00 PM. Your hotel’s page lists its schedule. After the rodeo, buses leave the Thomas & Mack Center continuously from 8:15 to 9:45 PM. A W Transportation Group Ambassador is posted at every pickup if you have questions."],
-  ["What does the route number mean?","Hotels that share a route share buses. Ride back on the same route number you came on, and the bus will stop at each hotel on that route."],
+  ["How often do buses leave my hotel?",`Before the rodeo, it depends on the stop: some depart every 10 to 20 minutes, others hourly at 4:00, 5:00 and 6:00 PM. <a href="#locations">Find your hotel</a> to see its departure schedule. After the rodeo, buses leave the Thomas & Mack Center continuously from 8:15 to 9:45 PM. An NFR Express Ambassador is posted at every pickup if you have questions.`,true],
+  ["What does the route number mean?","Hotels on the same route share buses after the rodeo. Ride back on the same route number you came on, and the bus will stop at each hotel on that route."],
+  ["Do buses run during the rodeo?","No. There is no shuttle service between 6:00 and 8:15 PM. If you arrive after 6:00 PM or want to leave before 8:15 PM, use rideshare (Lyft, Uber) or a taxi. Rideshare and taxis are available at the front of the Thomas & Mack Center."],
   ["When does the last bus leave the Thomas & Mack Center?","The last buses depart at 9:45 PM, December 3 to 12. All schedules are subject to change."],
   ["Does the Cowboy Christmas shuttle bring me back to the convention center?","No. Route 1 is a one-way express to the Thomas & Mack Center. Buses never return to the Las Vegas Convention Center, so plan another way back if your car is parked there."],
   ["My hotel isn't listed. Can I still ride?","Yes. Buses only stop at the locations listed here, so ride from whichever one is closest to where you're staying."],
@@ -304,14 +338,17 @@ function home(){
   <section class="hero"><div class="wrap">
     <div><div class="eyebrow">The free shuttle of the 2026 Wrangler National Finals Rodeo</div>
       <h1>Ride the NFR Express to Thomas &amp; Mack Center</h1>
-      <p>${STOPS.length} pickup locations on ${routes.length} routes, every performance night. Pick your hotel to see exactly where to board, with details specific to each location.</p></div>
+      <p>${STOPS.length} pickup locations on ${routes.length} routes, every performance night. Pick your hotel to see exactly where to board, with details specific to each location.</p>
+      <a class="hero-link" href="https://nfrexperience.com/" target="_blank" rel="noopener">Tickets, schedule &amp; event info at NFRExperience.com ↗</a></div>
     <dl class="facts">
       <div><dt>Dates</dt><dd>Dec 3 – 12, 2026</dd></div>
       <div><dt>Pre-event</dt><dd>${SERVICE.pre}</dd></div>
+      <div class="gap"><dt>No service</dt><dd>6:00 – 8:15 PM</dd></div>
       <div><dt>Post-event</dt><dd>${SERVICE.post}</dd></div>
       <div><dt>Rodeo starts</dt><dd>${SERVICE.start} nightly</dd></div>
       <div><dt>Fare</dt><dd>Free</dd></div>
     </dl>
+    <p class="hero-note">Schedules and departure times are subject to change, so check back here for the latest info.</p>
   </div></section>
 
   <section class="block" id="locations"><div class="wrap">
@@ -344,16 +381,16 @@ function home(){
       <div><span class="eyebrow">After ${ADA.cutoff} or same-day</span><h3 style="margin:6px 0 16px">Request in person</h3>
       <ol class="steps">
         <li><div><b>Go to your hotel's pickup area</b><span>Use your hotel's page to find the exact spot.</span></div></li>
-        <li><div><b>Find the W Transportation Group Ambassador</b><span>An Ambassador is posted at every pickup during service hours.</span></div></li>
-        <li><div><b>Ask for a lift bus</b><span>Staff will dispatch a lift-equipped bus to your location as soon as possible. Tell them how many are in your party.</span></div></li>
-        <li><div><b>Plan your ride home</b><span>At the Thomas &amp; Mack Center loading area, tell staff you need a lift bus back to your hotel.</span></div></li>
+        <li><div><b>Find the NFR Express Ambassador</b><span>An Ambassador is posted at every pickup during service hours.</span></div></li>
+        <li><div><b>Ask for a lift bus</b><span>Staff will dispatch a lift-equipped bus to your location as soon as possible. Tell them how many are in your party. If you also need a lift bus for the return trip, tell the Ambassador now so the team is ready for you after the rodeo.</span></div></li>
+        <li><div><b>Plan your ride home</b><span>At the Thomas &amp; Mack Center loading area, come straight to the front of the line and tell the shuttle staff you need a lift bus back to your hotel.</span></div></li>
       </ol></div>
     </div>
   </div></section>
 
   <section class="block" id="questions"><div class="wrap">
     <div class="head"><span class="eyebrow">Before you ride</span><h2>Shuttle FAQ</h2></div>
-    <div class="faq">${FAQ.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("")}</div>
+    <div class="faq">${FAQ.map(([q,a,html])=>`<details><summary>${esc(q)}</summary><p>${html?a:esc(a)}</p></details>`).join("")}</div>
   </div></section></div>`;
 }
 
@@ -401,7 +438,7 @@ function detail(s){
     <a class="crumb" href="#locations">← All pickups</a>
     <div class="dhead">
       <div class="who">${badge(s.r)}<div style="min-width:0"><h1>${esc(s.n)}</h1><div class="addr">${esc(s.ad)}</div></div></div>
-      <div class="btns"><a class="btn primary" href="${s.g||"https://www.google.com/maps/search/?api=1&query="+q2(s)}" target="_blank" rel="noopener">Google Maps</a><a class="btn" href="https://maps.apple.com/?q=${q2(s)}" target="_blank" rel="noopener">Apple Maps</a></div>
+      <div class="btns"><a class="btn primary" href="${s.g||"https://www.google.com/maps/search/?api=1&query="+q2(s)}" target="_blank" rel="noopener">Open in Google Maps</a></div>
     </div>
     <div class="dgrid">
       <div>
@@ -411,10 +448,11 @@ function detail(s){
         </div>
         <div class="panel"><span class="eyebrow">Service</span>
           <dl class="kv">
-            <dt>Route</dt><dd>Route ${s.r}${s.oneway?" · <strong>one way only</strong> to the Thomas &amp; Mack. No return to the convention center.":mates.length?" · also stops at "+mates.map(m=>`<a href="#${m.id}">${esc(m.n)}</a>`).join(", "):""}</dd>
+            <dt>Route</dt><dd>Route ${s.r}${s.oneway?`<span class="sub"><strong>One way only</strong> to Thomas &amp; Mack Center. No return to the convention center.</span>`:mates.length?`<span class="sub">Before the rodeo: direct to Thomas &amp; Mack Center.<br>After the rodeo: also stops at ${mates.map(m=>`<a href="#${m.id}">${esc(m.n)}</a>`).join(" and ")}.</span>`:`<span class="sub">Direct to Thomas &amp; Mack Center and back.</span>`}</dd>
             <dt>Pre-event</dt><dd>${SERVICE.pre}${s.freq?`<span class="sub">Departures: ${esc(s.freq.replace(/^Every/,"every").replace(/^Hourly/,"hourly"))}</span>`:""}</dd>
             <dt>Post-event</dt><dd>${s.oneway?"No return service":SERVICE.post+" from Thomas &amp; Mack Center<span class=\"sub\">Buses run continuously</span>"}</dd>
           </dl>
+          <p class="fine">Schedules and departure times are subject to change, so check back here for the latest info.</p>
         </div>
       </div>
       <div class="media">
@@ -438,6 +476,7 @@ function wire(){
   document.getElementById("q").addEventListener("input",e=>{query=e.target.value;b.innerHTML=board()});
 }
 let onDetail=false;
+function track(){try{(window.dataLayer=window.dataLayer||[]).push({event:"nfr_page_view",page_path:location.pathname+location.hash,page_title:document.title});if(typeof gtag==="function")gtag("event","page_view",{page_location:location.href,page_title:document.title})}catch(_){}}
 function route(){
   const h=decodeURIComponent(location.hash.slice(1)),s=STOPS.find(x=>x.id===h);
   document.querySelectorAll("[data-nav]").forEach(a=>a.removeAttribute("aria-current"));
@@ -448,7 +487,7 @@ function route(){
   if(t){t.scrollIntoView();const n=document.querySelector(`[data-nav="${h}"]`);n&&n.setAttribute("aria-current","page")}
   else if(!h)window.scrollTo(0,0);
 }
-window.addEventListener("hashchange",route);route();
+window.addEventListener("hashchange",()=>{route();track()});route();
 </script>
 </body>
 </html>

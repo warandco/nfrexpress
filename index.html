@@ -546,18 +546,20 @@ function wire(){
   document.getElementById("q").addEventListener("input",e=>{query=e.target.value;b.innerHTML=board()});
   document.querySelectorAll(".seg button").forEach(btn=>btn.addEventListener("click",()=>{view=btn.dataset.view;document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===btn));b.innerHTML=board()}));
 }
-let onDetail=false;
+let onDetail=false,homeY=0;
+try{history.scrollRestoration="manual"}catch(_){}
 function track(){try{(window.dataLayer=window.dataLayer||[]).push({event:"nfr_page_view",page_path:location.pathname+location.hash,page_title:document.title});if(typeof gtag==="function")gtag("event","page_view",{page_location:location.href,page_title:document.title})}catch(_){}}
 function route(){
   const h=decodeURIComponent(location.hash.slice(1)),s=STOPS.find(x=>x.id===h);
   document.querySelectorAll("[data-nav]").forEach(a=>a.removeAttribute("aria-current"));
+  if(!onDetail&&(s||h==="privacy"))homeY=window.scrollY;
   if(s){app.innerHTML=detail(s);document.title=s.n+" · NFR Express";window.scrollTo(0,0);onDetail=true;return}
   if(h==="privacy"){app.innerHTML=privacy();document.title="Privacy Notice · NFR Express";window.scrollTo(0,0);onDetail=true;return}
   document.title="NFR Express Rider Guide";
   if(onDetail||!app.innerHTML){app.innerHTML=home();wire();onDetail=false}
   const t=h&&document.getElementById(h);
   if(t){t.scrollIntoView();const n=document.querySelector(`[data-nav="${h}"]`);n&&n.setAttribute("aria-current","page")}
-  else if(!h)window.scrollTo(0,0);
+  else if(!h)window.scrollTo(0,homeY);
 }
 window.addEventListener("hashchange",()=>{route();track()});route();
 </script>

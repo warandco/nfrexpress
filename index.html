@@ -223,6 +223,21 @@ footer b{color:var(--navy-ink)}
 .legal .updated{color:var(--muted);margin:6px 0 28px}
 .legal h2{font-family:var(--body);text-transform:none;letter-spacing:0;font-size:1.15rem;font-weight:700;color:var(--ink);margin:28px 0 6px}
 .legal p{margin:0 0 12px;max-width:65ch}
+.legal{overflow-wrap:anywhere}
+.crumb{padding-block:10px}
+@media (max-width:760px){
+  .top{position:static}
+  body::before{display:none}
+  section.block{scroll-margin-top:12px}
+}
+@media (max-width:820px){
+  .dgrid{display:flex;flex-direction:column;gap:16px}
+  .dgrid>div{display:contents}
+  .dgrid .panel:first-child{order:1}
+  .dgrid .media figure:first-child{order:2}
+  .dgrid .panel+.panel{order:3;margin-top:0}
+  .dgrid .media figure:not(:first-child){order:4}
+}
 @media (prefers-reduced-motion:no-preference){.view{animation:in .25s ease-out}@keyframes in{from{transform:translateY(6px)}to{transform:none}}}
 </style>
 

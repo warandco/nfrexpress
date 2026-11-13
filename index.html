@@ -142,6 +142,7 @@ section.block + section.block{border-top:1px solid var(--line)}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;margin:0}
 .kv dt{font-family:var(--display);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
 .kv dd{margin:0;font-variant-numeric:tabular-nums}
+.kv .sub{display:block;font-size:.88rem;color:var(--muted)}
 .media{display:grid;gap:22px}
 figure{margin:0}
 .ph{aspect-ratio:4/3;max-width:100%;border-radius:6px;border:1px dashed var(--line);display:grid;place-items:center;text-align:center;color:var(--muted);font-size:.9rem;padding:16px;
@@ -200,7 +201,7 @@ const STOPS = [
   {r:7, id:"horseshoe", n:"Horseshoe", spot:"North Tour Lobby", desc:"The entrance facing Flamingo Rd., where rideshare pickup is located.", freq:"Every 15–20 minutes", g:"https://maps.app.goo.gl/BRS96zPZXwvhkUMe8", ad:"3645 Las Vegas Blvd S, Las Vegas, NV 89109"},
   {r:8, id:"gold-coast", n:"Gold Coast", spot:"Valet Entrance", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/5U6YCafH67LCHaLs5", ad:"4000 W Flamingo Rd, Las Vegas, NV 89103"},
   {r:8, id:"palms", n:"Palms", spot:"Main Entrance", desc:"The bus stages in the lane just outside the porte-cochère.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/qLq9FgbeM16bEnK16", ad:"4321 W Flamingo Rd, Las Vegas, NV 89103"},
-  {r:8, id:"rio", n:"Rio", spot:"Pavilion Entrance", desc:"Located outside the Rio Convention Center.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/EG93zvvuUk8Bp7Sq6", ad:"3700 W Flamingo Rd, Las Vegas, NV 89103"},
+  {r:8, id:"rio", n:"Rio", spot:"Convention Center Entrance", desc:"Located outside the Rio Convention Center.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/EG93zvvuUk8Bp7Sq6", ad:"3700 W Flamingo Rd, Las Vegas, NV 89103"},
   {r:9, id:"the-d", n:"The D", spot:"Carson Ave. Curb", desc:"Outside the valet entrance.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/DXGvzt7vfiuHyB1x7", ad:"301 Fremont St, Las Vegas, NV 89101"},
   {r:9, id:"downtown-grand", n:"Downtown Grand", spot:"Valet Entrance", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/mw3grdbH4nrSD51q8", ad:"206 N 3rd St, Las Vegas, NV 89101"},
   {r:10, id:"circa", n:"Circa", spot:"Garage Mahal", desc:"From the casino, take the bridge to the Garage Mahal parking structure.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/vAE5HNXk52NhW4J79", ad:"8 Fremont St, Las Vegas, NV 89101"},
@@ -271,7 +272,7 @@ const byId=id=>STOPS.find(s=>s.id===id);
 const FAQ = [
   ["Do I need a ticket to ride?","No. The NFR Express is free for all rodeo fans. Head to any pickup location below."],
   ["What are the service hours?",`Pre-event buses run ${SERVICE.pre} to the Thomas & Mack Center. Post-event buses run ${SERVICE.post} back to the host hotels. Every performance starts at ${SERVICE.start}.`],
-  ["How often do buses leave my hotel?","Most pickups see a departure about every 15 minutes, or sooner when a bus fills. Some run on a ridership-based schedule, every 30 to 60 minutes. A W Transportation Group Ambassador is posted at every pickup and has the current schedule for that stop."],
+  ["How often do buses leave my hotel?","Before the rodeo, it depends on the stop: some depart every 10 to 20 minutes, others hourly at 4:00, 5:00 and 6:00 PM. Your hotel’s page lists its schedule. After the rodeo, buses leave the Thomas & Mack Center continuously from 8:15 to 9:45 PM. A W Transportation Group Ambassador is posted at every pickup if you have questions."],
   ["What does the route number mean?","Hotels that share a route share buses. Ride back on the same route number you came on, and the bus will stop at each hotel on that route."],
   ["When does the last bus leave the Thomas & Mack Center?","The last buses depart at 9:45 PM, December 3 to 12. All schedules are subject to change."],
   ["Does the Cowboy Christmas shuttle bring me back to the convention center?","No. Route 1 is a one-way express to the Thomas & Mack Center. Buses never return to the Las Vegas Convention Center, so plan another way back if your car is parked there."],
@@ -365,7 +366,7 @@ function board(){
 }
 
 /* Assets on hand. p = number of photos (photos/<id>.jpg, <id>-2.jpg …), m = map [width,height] at maps/<id>.jpg */
-const MEDIA={"caesars-palace":{"p":[[1600,1405]],"m":[1075,799],"c":"Image: Google Street View"},"circa":{"p":[[1001,668]],"m":null},"cowboy-christmas":{"p":[[1600,1200]],"m":[2400,1553]},"downtown-grand":{"p":[[1600,1200]],"m":null},"fontainebleau":{"p":[[1600,1200]],"m":[2229,1479]},"gold-coast":{"p":[[1600,1039]],"m":null,"c":"Image: Google Street View"},"golden-nugget":{"p":[[1600,1200]],"m":[2400,1443]},"harrahs":{"p":[[1600,1200],[1600,1200]],"m":[2348,1817]},"horseshoe":{"p":[[1600,1200]],"m":[2400,1954]},"mandalay-bay":{"p":[[1600,1200],[1600,1200]],"m":[2400,2187]},"mgm-grand":{"p":[[1600,1200]],"m":[1918,2248]},"palms":{"p":[[1600,1136]],"m":[2400,1855],"c":"Image: Google Street View"},"park-mgm":{"p":[[1600,1200],[1600,1200]],"m":[2400,2139]},"plaza":{"p":[[1600,1200]],"m":[2138,1538]},"resorts-world":{"p":[[1600,1200]],"m":[2129,1921]},"rio":{"p":[[1600,1200],[1600,1200]],"m":[2400,1821]},"sams-town":{"p":[[1600,1200]],"m":[697,1100]},"silverton":{"p":[[1498,1332]],"m":[1489,821],"c":"Image: Google Street View"},"south-point":{"p":[[1600,869]],"m":[1280,1052],"c":"Image: Google Street View"},"the-d":{"p":[[1600,1200]],"m":[1720,1544]},"the-strat":{"p":[[1600,1201]],"m":[1169,623],"c":"Image: Google Street View"},"treasure-island":{"p":[[1600,1045]],"m":[2346,1603],"c":"Image: Google Street View"},"virgin-hotels":{"p":[[1600,1263]],"m":[2000,2400],"c":"Image: Google Street View"},"westgate":{"p":[[1600,1200]],"m":[1145,990]},"the-orleans":{"p":[],"m":[1536,1174]}};
+const MEDIA={"the-orleans":{"p":[[1600,1015]],"m":[1536,1174],"c":"Image: Google Street View"},"caesars-palace":{"p":[[1600,1405]],"m":[1075,799],"c":"Image: Google Street View"},"circa":{"p":[[1001,668]],"m":null},"cowboy-christmas":{"p":[[1600,1200]],"m":[2400,1553]},"downtown-grand":{"p":[[1600,1200]],"m":null},"fontainebleau":{"p":[[1600,1200]],"m":[2229,1479]},"gold-coast":{"p":[[1600,1039]],"m":null,"c":"Image: Google Street View"},"golden-nugget":{"p":[[1600,1200]],"m":[2400,1443]},"harrahs":{"p":[[1600,1200],[1600,1200]],"m":[2348,1817]},"horseshoe":{"p":[[1600,1200]],"m":[2400,1954]},"mandalay-bay":{"p":[[1600,1200],[1600,1200]],"m":[2400,2187]},"mgm-grand":{"p":[[1600,1200]],"m":[1918,2248]},"palms":{"p":[[1600,1136]],"m":[2400,1855],"c":"Image: Google Street View"},"park-mgm":{"p":[[1600,1200],[1600,1200]],"m":[2400,2139]},"plaza":{"p":[[1600,1200]],"m":[2138,1538]},"resorts-world":{"p":[[1600,1200]],"m":[2129,1921]},"rio":{"p":[[1600,1200],[1600,1200]],"m":[2400,1821]},"sams-town":{"p":[[1600,1200]],"m":[697,1100]},"silverton":{"p":[[1498,1332]],"m":[1489,821],"c":"Image: Google Street View"},"south-point":{"p":[[1600,869]],"m":[1280,1052],"c":"Image: Google Street View"},"the-d":{"p":[[1600,1200]],"m":[1720,1544]},"the-strat":{"p":[[1600,1201]],"m":[1169,623],"c":"Image: Google Street View"},"treasure-island":{"p":[[1600,1045]],"m":[2346,1603],"c":"Image: Google Street View"},"virgin-hotels":{"p":[[1600,1263]],"m":[2000,2400],"c":"Image: Google Street View"},"westgate":{"p":[[1600,1200]],"m":[1145,990]}};
 const ph=label=>`<figure><div class="ph">${label}<br>coming soon</div></figure>`;
 function mediaBlock(s){
   const m=MEDIA[s.id]||{p:[],m:null};let h="";
@@ -394,9 +395,8 @@ function detail(s){
         <div class="panel"><span class="eyebrow">Service</span>
           <dl class="kv">
             <dt>Route</dt><dd>Route ${s.r}${s.oneway?" · <strong>one way only</strong> to the Thomas &amp; Mack. No return to the convention center.":mates.length?" · also stops at "+mates.map(m=>`<a href="#${m.id}">${esc(m.n)}</a>`).join(", "):""}</dd>
-            <dt>Pre-event</dt><dd>${SERVICE.pre}</dd>
-            <dt>Post-event</dt><dd>${s.oneway?"No return service":SERVICE.post+" from Thomas &amp; Mack Center"}</dd>
-            ${s.freq?`<dt>Frequency</dt><dd>${esc(s.freq)}</dd>`:""}
+            <dt>Pre-event</dt><dd>${SERVICE.pre}${s.freq?`<span class="sub">Departures: ${esc(s.freq.replace(/^Every/,"every").replace(/^Hourly/,"hourly"))}</span>`:""}</dd>
+            <dt>Post-event</dt><dd>${s.oneway?"No return service":SERVICE.post+" from Thomas &amp; Mack Center<span class=\"sub\">Buses run continuously</span>"}</dd>
           </dl>
         </div>
       </div>

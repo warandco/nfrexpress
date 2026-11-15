@@ -69,7 +69,7 @@ h3{font-size:1.05rem;font-weight:700}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--navy);color:var(--navy-ink);border-bottom:4px solid var(--red)}
 .top .wrap{display:flex;align-items:center;gap:12px 20px;padding-block:12px;flex-wrap:wrap}
 .brand{text-decoration:none;display:flex;align-items:center;gap:10px}
-.seal{width:40px;height:40px;border-radius:50%;border:2px solid var(--gold-hi);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:.62rem;line-height:1;color:var(--gold-hi);text-align:center;letter-spacing:.04em}
+.seal{width:42px;height:42px;flex:none;display:block}
 .brand b{font-family:var(--display);font-weight:600;font-size:1.25rem;letter-spacing:.04em;text-transform:uppercase}
 .brand small{display:block;font-size:.72rem;color:#AEB4C3;font-weight:500}
 .top nav{display:flex;gap:2px;margin-left:auto;flex-wrap:wrap}
@@ -255,7 +255,7 @@ footer b{color:var(--navy-ink)}
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#"><span class="seal">NFR<br>EXP</span><span><b>NFR Express</b><small>Free shuttle · Dec 3–12, 2026</small></span></a>
+    <a class="brand" href="#"><svg class="seal" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#13294B" stroke="#C9A86A" stroke-width="4"/><rect x="17" y="18" width="30" height="24" rx="4" fill="#C9A86A"/><rect x="21" y="22" width="22" height="9" rx="1" fill="#13294B"/><circle cx="24" cy="45" r="3" fill="#C9A86A"/><circle cx="40" cy="45" r="3" fill="#C9A86A"/></svg><span><b>NFR Express</b><small>Free shuttle · Dec 3–12, 2026</small></span></a>
     <nav aria-label="Sections">
       <a href="#locations" data-nav="locations">Pickups</a>
       <a href="#accessible" data-nav="accessible">ADA Lift Buses</a>

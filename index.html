@@ -202,6 +202,7 @@ section.block + section.block{border-top:1px solid var(--line)}
 .spot{font-family:var(--display);font-weight:600;font-size:1.5rem;text-transform:uppercase;letter-spacing:.02em;line-height:1.15}
 .spot-note{color:var(--muted);margin-top:4px}
 .spot-desc{margin:8px 0 0;max-width:60ch}
+.spot-video{margin:10px 0 0;font-weight:600}
 .dirs{margin:14px 0 0;padding-left:20px;display:grid;gap:6px}
 .kv{display:grid;grid-template-columns:auto 1fr;column-gap:0;margin:0}
 .kv dd{padding-left:20px}
@@ -284,6 +285,7 @@ const STOPS = [
   {r:1, id:"cowboy-christmas", n:"Cowboy Christmas presented by Texas Precious Metals", spot:"South Hall, East Entrance", note:"Las Vegas Convention Center", desc:"The entrance closest to the Vegas Loop South Station and University Center Dr.", freq:"Every 30 minutes", g:"https://maps.app.goo.gl/BUzCVEpqfEiksTGK8", ad:"Las Vegas Convention Center, South Hall, 3150 Paradise Rd, Las Vegas, NV 89109", oneway:true},
   {r:2, id:"mgm-grand", n:"MGM Grand", spot:"Main Entrance", freq:"Every 10–20 minutes", g:"https://maps.app.goo.gl/pJMznAmcPTyLS5Cs8", ad:"3799 Las Vegas Blvd S, Las Vegas, NV 89109"},
   {r:3, id:"park-mgm", n:"Park MGM", spot:"North Entrance (Uber Lot)", desc:"Exit the lobby before the parking garage escalators.", freq:"Every 20–30 minutes", g:"https://maps.app.goo.gl/iCVM1TERm9GGjU717", ad:"3770 Las Vegas Blvd S, Las Vegas, NV 89109"},
+  {r:3, id:"mandalay-bay", n:"Mandalay Bay", spot:"Beach Level Entrance", desc:"The Beach Level entrance is one level below the main entrance.", freq:"Every 30 minutes", g:"https://maps.app.goo.gl/YnNQpcddxqpRpq1S6", ad:"3950 Las Vegas Blvd S, Las Vegas, NV 89119"},
   {r:4, id:"the-orleans", n:"The Orleans", spot:"Valet Entrance", desc:"The bus loads just outside the porte-cochère.", freq:"Every 15–20 minutes", g:"https://maps.app.goo.gl/Kf26f1ou2HECoPFv6", ad:"4500 W Tropicana Ave, Las Vegas, NV 89103"},
   {r:5, id:"fontainebleau", n:"Fontainebleau Las Vegas", spot:"North Valet Entrance", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/BZjc4bLBw5UHWJ8S8", ad:"2777 Las Vegas Blvd S, Las Vegas, NV 89109"},
   {r:5, id:"westgate", n:"Westgate", spot:"East Tower Entrance", desc:"The entrance facing Joe W. Brown Dr.", freq:"Every 30–45 minutes", g:"https://maps.app.goo.gl/DgjGY5v32hR3iswE6", ad:"3000 Paradise Rd, Las Vegas, NV 89109"},
@@ -301,13 +303,13 @@ const STOPS = [
   {r:10, id:"plaza", n:"Plaza", spot:"Main Street Curb at Carson Ave.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/BjJA9EtnGHcwCDab9", ad:"1 Main St, Las Vegas, NV 89101"},
   {r:11, id:"resorts-world", n:"Resorts World", spot:"Rideshare Lot", desc:"From the casino entrance, head to the right and follow the signs to the rideshare area.", freq:"Every 20 minutes", g:"https://maps.app.goo.gl/HkrbvXEAJLh24aXL8", ad:"3000 Las Vegas Blvd S, Las Vegas, NV 89109"},
   {r:11, id:"the-strat", n:"The STRAT", spot:"West Entrance", desc:"Follow the signs to rideshare pickup.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/9r4ssDfgjxLBHw898", ad:"2000 Las Vegas Blvd S, Las Vegas, NV 89104"},
-  {r:12, id:"mandalay-bay", n:"Mandalay Bay", spot:"Beach Level Entrance", desc:"The Beach Level entrance is one level below the main entrance.", freq:"Every 30 minutes", g:"https://maps.app.goo.gl/YnNQpcddxqpRpq1S6", ad:"3950 Las Vegas Blvd S, Las Vegas, NV 89119"},
   {r:12, id:"virgin-hotels", n:"Virgin Hotels Las Vegas", spot:"Main Entrance", desc:"Just past the porte-cochère.", freq:"Every 30 minutes", g:"https://maps.app.goo.gl/kyfGYVPTgjaxTgPz5", ad:"4455 Paradise Rd, Las Vegas, NV 89169"},
+  {r:12, id:"planet-hollywood", n:"Planet Hollywood", spot:"Tour Bus Area", desc:"Take the escalators down to the hotel lobby area. Exit the lobby into the parking area and turn left. You’ll see direction signs for the bus and shuttle area.", video:"https://www.youtube.com/watch?v=w4Ti_e1hZo4", ad:"3667 Las Vegas Blvd S, Las Vegas, NV 89109"},
   {r:13, id:"sams-town", n:"Sam's Town", spot:"Rear Entrance", desc:"The entrance outside the food court.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/FxtZFBV3PzERtz429", ad:"5111 Boulder Hwy, Las Vegas, NV 89122"},
   {r:14, id:"silverton", n:"Silverton", spot:"Main Entrance", freq:"Every 30 minutes", g:"https://maps.app.goo.gl/swn2XjDzj9T3Tb1q9", ad:"3333 Blue Diamond Rd, Las Vegas, NV 89139"},
   {r:14, id:"south-point", n:"South Point", spot:"Main Entrance", desc:"Buses load just outside the porte-cochère.", freq:"Every 10–20 minutes", g:"https://maps.app.goo.gl/kVF5nACvRwX2SQW8A", ad:"9777 Las Vegas Blvd S, Las Vegas, NV 89183"}
 ].map(s=>({dirs:[],k:[],...s}));
-const ALIAS={"treasure-island":["ti"],"the-strat":["stratosphere"],"westgate":["lvh","las vegas hotel"],"horseshoe":["ballys","bally"],"caesars-palace":["caesars"],"circa":["garage mahal"],"park-mgm":["monte carlo"],"virgin-hotels":["virgin","hard rock"],"cowboy-christmas":["lvcc","convention center"],"palms":["the palms"]};
+const ALIAS={"treasure-island":["ti"],"the-strat":["stratosphere"],"westgate":["lvh","las vegas hotel"],"horseshoe":["ballys","bally"],"caesars-palace":["caesars"],"circa":["garage mahal"],"park-mgm":["monte carlo"],"virgin-hotels":["virgin","hard rock"],"cowboy-christmas":["lvcc","convention center"],"planet-hollywood":["planet"],"palms":["the palms"]};
 STOPS.forEach(s=>s.k=ALIAS[s.id]||[]);
 
 /* Non-pickup hotels from M Resort to El Cortez -> nearest pickups (first = recommended). Distances checked against Google Maps coordinates. */
@@ -318,14 +320,13 @@ const NEARBY=[
   {n:"Luxor",to:["mandalay-bay"]},
   {n:"Excalibur",to:["mgm-grand","mandalay-bay"]},
   {n:"New York-New York",k:["nyny","new york new york"],to:["park-mgm","mgm-grand"]},
-  {n:"The Signature at MGM Grand",k:["signature"],to:["mgm-grand"]},
+  {n:"The Signature at MGM Grand",k:["signature"],to:["mgm-grand","planet-hollywood"]},
   {n:"Aria",to:["park-mgm"]},
   {n:"Vdara",to:["park-mgm"]},
   {n:"Waldorf Astoria",k:["waldorf","mandarin oriental"],to:["park-mgm"]},
   {n:"The Cosmopolitan",k:["cosmo"],to:["park-mgm","horseshoe"]},
-  {n:"Planet Hollywood",k:["planet"],to:["horseshoe","mgm-grand"]},
-  {n:"Elara (Hilton Grand Vacations)",k:["elara"],to:["horseshoe","mgm-grand"]},
-  {n:"Marriott's Grand Chateau",k:["grand chateau"],to:["horseshoe","mgm-grand"]},
+  {n:"Elara (Hilton Grand Vacations)",k:["elara"],to:["planet-hollywood","horseshoe"]},
+  {n:"Marriott's Grand Chateau",k:["grand chateau"],to:["planet-hollywood","horseshoe"]},
   {n:"Paris Las Vegas",k:["paris"],to:["horseshoe"]},
   {n:"Bellagio",to:["caesars-palace","horseshoe"]},
   {n:"Nobu Hotel",k:["nobu"],to:["caesars-palace","harrahs"]},
@@ -488,7 +489,7 @@ function board(){
 }
 
 /* Assets on hand. p = number of photos (photos/<id>.jpg, <id>-2.jpg …), m = map [width,height] at maps/<id>.jpg */
-const MEDIA={"the-orleans":{"p":[[1600,1015]],"m":[1536,1174],"c":"Image: Google Street View"},"caesars-palace":{"p":[[1600,1405]],"m":[1075,799],"c":"Image: Google Street View"},"circa":{"p":[[1001,668]],"m":null},"cowboy-christmas":{"p":[[1600,1200]],"m":[2400,1553]},"downtown-grand":{"p":[[1600,1200]],"m":null},"fontainebleau":{"p":[[1600,1200]],"m":[2229,1479]},"gold-coast":{"p":[[1600,1039]],"m":null,"c":"Image: Google Street View"},"golden-nugget":{"p":[[1600,1200]],"m":[2400,1443]},"harrahs":{"p":[[1600,1200],[1600,1200]],"m":[2348,1817]},"horseshoe":{"p":[[1600,1200]],"m":[2400,1954]},"mandalay-bay":{"p":[[1600,1200],[1600,1200]],"m":[2400,2187]},"mgm-grand":{"p":[[1600,1200]],"m":[1918,2248]},"palms":{"p":[[1600,1136]],"m":[2400,1855],"c":"Image: Google Street View"},"park-mgm":{"p":[[1600,1200],[1600,1200]],"m":[2400,2139]},"plaza":{"p":[[1600,1200]],"m":[2138,1538]},"resorts-world":{"p":[[1600,1200]],"m":[2129,1921]},"rio":{"p":[[1600,1200],[1600,1200]],"m":[2400,1821]},"sams-town":{"p":[[1600,1200]],"m":[697,1100]},"silverton":{"p":[[1498,1332]],"m":[1489,821],"c":"Image: Google Street View"},"south-point":{"p":[[1600,869]],"m":[1280,1052],"c":"Image: Google Street View"},"the-d":{"p":[[1600,1200]],"m":[1720,1544]},"the-strat":{"p":[[1600,1201]],"m":[1169,623],"c":"Image: Google Street View"},"treasure-island":{"p":[[1600,1045]],"m":[2346,1603],"c":"Image: Google Street View"},"virgin-hotels":{"p":[[1600,1263]],"m":[2000,2400],"c":"Image: Google Street View"},"westgate":{"p":[[1600,1200]],"m":[1145,990]}};
+const MEDIA={"planet-hollywood":{"p":[[1600,905]],"m":null},"the-orleans":{"p":[[1600,1015]],"m":[1536,1174],"c":"Image: Google Street View"},"caesars-palace":{"p":[[1600,1405]],"m":[1075,799],"c":"Image: Google Street View"},"circa":{"p":[[1001,668]],"m":null},"cowboy-christmas":{"p":[[1600,1200]],"m":[2400,1553]},"downtown-grand":{"p":[[1600,1200]],"m":null},"fontainebleau":{"p":[[1600,1200]],"m":[2229,1479]},"gold-coast":{"p":[[1600,1039]],"m":null,"c":"Image: Google Street View"},"golden-nugget":{"p":[[1600,1200]],"m":[2400,1443]},"harrahs":{"p":[[1600,1200],[1600,1200]],"m":[2348,1817]},"horseshoe":{"p":[[1600,1200]],"m":[2400,1954]},"mandalay-bay":{"p":[[1600,1200],[1600,1200]],"m":[2400,2187]},"mgm-grand":{"p":[[1600,1200]],"m":[1918,2248]},"palms":{"p":[[1600,1136]],"m":[2400,1855],"c":"Image: Google Street View"},"park-mgm":{"p":[[1600,1200],[1600,1200]],"m":[2400,2139]},"plaza":{"p":[[1600,1200]],"m":[2138,1538]},"resorts-world":{"p":[[1600,1200]],"m":[2129,1921]},"rio":{"p":[[1600,1200],[1600,1200]],"m":[2400,1821]},"sams-town":{"p":[[1600,1200]],"m":[697,1100]},"silverton":{"p":[[1498,1332]],"m":[1489,821],"c":"Image: Google Street View"},"south-point":{"p":[[1600,869]],"m":[1280,1052],"c":"Image: Google Street View"},"the-d":{"p":[[1600,1200]],"m":[1720,1544]},"the-strat":{"p":[[1600,1201]],"m":[1169,623],"c":"Image: Google Street View"},"treasure-island":{"p":[[1600,1045]],"m":[2346,1603],"c":"Image: Google Street View"},"virgin-hotels":{"p":[[1600,1263]],"m":[2000,2400],"c":"Image: Google Street View"},"westgate":{"p":[[1600,1200]],"m":[1145,990]}};
 const ph=label=>`<figure><div class="ph">${label}<br>coming soon</div></figure>`;
 function mediaBlock(s){
   const m=MEDIA[s.id]||{p:[],m:null};let h="";
@@ -512,6 +513,7 @@ function detail(s){
       <div>
         <div class="panel"><span class="eyebrow">Where to board</span>
           <div class="spot">${esc(s.spot)}</div>${s.desc?`<p class="spot-desc">${esc(s.desc)}</p>`:s.note?`<div class="spot-note">${esc(s.note)}</div>`:""}
+          ${s.video?`<p class="spot-video"><a href="${s.video}" target="_blank" rel="noopener">Watch a video of the walk to the pickup ↗</a></p>`:""}
           ${s.dirs.length?`<ol class="dirs">${s.dirs.map(d=>`<li>${esc(d)}</li>`).join("")}</ol>`:""}
         </div>
         <div class="panel"><span class="eyebrow">Service</span>

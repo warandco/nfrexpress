@@ -203,6 +203,8 @@ section.block + section.block{border-top:1px solid var(--line)}
 .spot-note{color:var(--muted);margin-top:4px}
 .spot-desc{margin:8px 0 0;max-width:60ch}
 .spot-video{margin:10px 0 0;font-weight:600}
+.vid{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:6px;overflow:hidden;background:#000}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .dirs{margin:14px 0 0;padding-left:20px;display:grid;gap:6px}
 .kv{display:grid;grid-template-columns:auto 1fr;column-gap:0;margin:0}
 .kv dd{padding-left:20px}
@@ -489,13 +491,14 @@ function board(){
 }
 
 /* Assets on hand. p = number of photos (photos/<id>.jpg, <id>-2.jpg …), m = map [width,height] at maps/<id>.jpg */
-const MEDIA={"planet-hollywood":{"p":[[1600,1287],[1600,905]],"m":null},"the-orleans":{"p":[[1600,1015]],"m":[1536,1174],"c":"Image: Google Street View"},"caesars-palace":{"p":[[1600,1405]],"m":[1075,799],"c":"Image: Google Street View"},"circa":{"p":[[1001,668]],"m":null},"cowboy-christmas":{"p":[[1600,1200]],"m":[2400,1553]},"downtown-grand":{"p":[[1600,1200]],"m":null},"fontainebleau":{"p":[[1600,1200]],"m":[2229,1479]},"gold-coast":{"p":[[1600,1039]],"m":null,"c":"Image: Google Street View"},"golden-nugget":{"p":[[1600,1200]],"m":[2400,1443]},"harrahs":{"p":[[1600,1200],[1600,1200]],"m":[2348,1817]},"horseshoe":{"p":[[1600,1200]],"m":[2400,1954]},"mandalay-bay":{"p":[[1600,1200],[1600,1200]],"m":[2400,2187]},"mgm-grand":{"p":[[1600,1200]],"m":[1918,2248]},"palms":{"p":[[1600,1136]],"m":[2400,1855],"c":"Image: Google Street View"},"park-mgm":{"p":[[1600,1200],[1600,1200]],"m":[2400,2139]},"plaza":{"p":[[1600,1200]],"m":[2138,1538]},"resorts-world":{"p":[[1600,1200]],"m":[2129,1921]},"rio":{"p":[[1600,1200],[1600,1200]],"m":[2400,1821]},"sams-town":{"p":[[1600,1200]],"m":[697,1100]},"silverton":{"p":[[1498,1332]],"m":[1489,821],"c":"Image: Google Street View"},"south-point":{"p":[[1600,869]],"m":[1280,1052],"c":"Image: Google Street View"},"the-d":{"p":[[1600,1200]],"m":[1720,1544]},"the-strat":{"p":[[1600,1201]],"m":[1169,623],"c":"Image: Google Street View"},"treasure-island":{"p":[[1600,1045]],"m":[2346,1603],"c":"Image: Google Street View"},"virgin-hotels":{"p":[[1600,1263]],"m":[2000,2400],"c":"Image: Google Street View"},"westgate":{"p":[[1600,1200]],"m":[1145,990]}};
+const MEDIA={"planet-hollywood":{"p":[[1600,1287],[1600,905]],"m":null,"v":3},"the-orleans":{"p":[[1600,1015]],"m":[1536,1174],"c":"Image: Google Street View"},"caesars-palace":{"p":[[1600,1405]],"m":[1075,799],"c":"Image: Google Street View"},"circa":{"p":[[1001,668]],"m":null},"cowboy-christmas":{"p":[[1600,1200]],"m":[2400,1553]},"downtown-grand":{"p":[[1600,1200]],"m":null},"fontainebleau":{"p":[[1600,1200]],"m":[2229,1479]},"gold-coast":{"p":[[1600,1039]],"m":null,"c":"Image: Google Street View"},"golden-nugget":{"p":[[1600,1200]],"m":[2400,1443]},"harrahs":{"p":[[1600,1200],[1600,1200]],"m":[2348,1817]},"horseshoe":{"p":[[1600,1200]],"m":[2400,1954]},"mandalay-bay":{"p":[[1600,1200],[1600,1200]],"m":[2400,2187]},"mgm-grand":{"p":[[1600,1200]],"m":[1918,2248]},"palms":{"p":[[1600,1136]],"m":[2400,1855],"c":"Image: Google Street View"},"park-mgm":{"p":[[1600,1200],[1600,1200]],"m":[2400,2139]},"plaza":{"p":[[1600,1200]],"m":[2138,1538]},"resorts-world":{"p":[[1600,1200]],"m":[2129,1921]},"rio":{"p":[[1600,1200],[1600,1200]],"m":[2400,1821]},"sams-town":{"p":[[1600,1200]],"m":[697,1100]},"silverton":{"p":[[1498,1332]],"m":[1489,821],"c":"Image: Google Street View"},"south-point":{"p":[[1600,869]],"m":[1280,1052],"c":"Image: Google Street View"},"the-d":{"p":[[1600,1200]],"m":[1720,1544]},"the-strat":{"p":[[1600,1201]],"m":[1169,623],"c":"Image: Google Street View"},"treasure-island":{"p":[[1600,1045]],"m":[2346,1603],"c":"Image: Google Street View"},"virgin-hotels":{"p":[[1600,1263]],"m":[2000,2400],"c":"Image: Google Street View"},"westgate":{"p":[[1600,1200]],"m":[1145,990]}};
 const ph=label=>`<figure><div class="ph">${label}<br>coming soon</div></figure>`;
 function mediaBlock(s){
   const m=MEDIA[s.id]||{p:[],m:null};let h="";
-  if(m.p.length){m.p.forEach((d,j)=>{const i=j+1,src=`photos/${s.id}${i>1?"-"+i:""}.jpg`;
+  if(m.p.length){m.p.forEach((d,j)=>{const i=j+1,src=`photos/${s.id}${i>1?"-"+i:""}.jpg${m.v?"?v="+m.v:""}`;
     h+=`<figure><img class="shot" src="${src}" width="${d[0]}" height="${d[1]}" loading="${i>1?"lazy":"eager"}" alt="${i===1?"NFR Express pickup area at "+esc(s.n):"Another view near the "+esc(s.n)+" pickup"}"><figcaption>${i===1?"NFR Express pickup area":"Another view near the pickup"}${m.c?` <span class="credit">${esc(m.c)}</span>`:""}</figcaption></figure>`;});}
   else h+=ph("Pickup photo");
+  if(s.video){const id=(s.video.match(/v=([\w-]+)/)||[])[1];if(id)h+=`<figure><div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${id}?rel=0" title="Video: walking to the ${esc(s.n)} NFR Express pickup" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div><figcaption>Video of the walk to the pickup. <a href="${s.video}" target="_blank" rel="noopener">Open on YouTube</a></figcaption></figure>`;}
   if(m.m) h+=`<figure><a class="mapl" href="maps/${s.id}.jpg" target="_blank" rel="noopener"><img class="shot map" src="maps/${s.id}.jpg" width="${m.m[0]}" height="${m.m[1]}" loading="lazy" alt="${esc(s.n)} property map with the NFR Express pickup marked by a bus icon"></a><figcaption>Property map. The yellow bus icon marks the pickup. Tap the map to enlarge it.</figcaption></figure>`;
   return h;
 }
@@ -513,7 +516,7 @@ function detail(s){
       <div>
         <div class="panel"><span class="eyebrow">Where to board</span>
           <div class="spot">${esc(s.spot)}</div>${s.desc?`<p class="spot-desc">${esc(s.desc)}</p>`:s.note?`<div class="spot-note">${esc(s.note)}</div>`:""}
-          ${s.video?`<p class="spot-video"><a href="${s.video}" target="_blank" rel="noopener">Watch a video of the walk to the pickup ↗</a></p>`:""}
+          ${s.video?`<p class="spot-video"><a href="#walk-video" onclick="document.querySelector('.vid')?.scrollIntoView({behavior:'smooth',block:'center'});return false">Watch a video of the walk to the pickup ↓</a></p>`:""}
           ${s.dirs.length?`<ol class="dirs">${s.dirs.map(d=>`<li>${esc(d)}</li>`).join("")}</ol>`:""}
         </div>
         <div class="panel"><span class="eyebrow">Service</span>
@@ -553,6 +556,7 @@ function privacy(){
     <p>We don't sell or rent personal information to anyone. Nevada residents may still send us a request not to sell their covered information, using the contact below.</p>
     <h2>Other websites</h2>
     <p>Links to other sites, such as NFRExperience.com and Google Maps, are covered by those sites' own privacy policies.</p>
+    <p>Some pickup pages include an embedded YouTube video. It loads in YouTube’s privacy-enhanced mode, and YouTube’s privacy policy applies when you play it.</p>
     <h2>Children</h2>
     <p>This site isn't directed to children under 13, and we don't knowingly collect their information.</p>
     <h2>Changes and contact</h2>

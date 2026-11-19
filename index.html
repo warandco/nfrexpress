@@ -132,6 +132,7 @@ section.block + section.block{border-top:1px solid var(--line)}
 .route a b{font-weight:700}
 .route a:hover b{color:var(--gold);text-decoration:underline;text-underline-offset:3px}
 .route a span{display:block;font-size:.9rem;color:var(--muted)}
+.route a span.new-tag,.az a span.new-tag,.new-tag{display:inline-block;vertical-align:2px;margin-left:8px;padding:2px 7px;border-radius:999px;background:var(--red);color:#fff;font-family:var(--display);font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;line-height:1.5}
 .empty{color:var(--muted);padding:20px 0;grid-column:1/-1}
 .near{grid-column:1/-1;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:6px;padding:18px 20px;margin:12px 0 8px}
 .near p{margin:6px 0 12px}
@@ -306,7 +307,7 @@ const STOPS = [
   {r:11, id:"resorts-world", n:"Resorts World", spot:"Rideshare Lot", desc:"From the casino entrance, head to the right and follow the signs to the rideshare area.", freq:"Every 20 minutes", g:"https://maps.app.goo.gl/HkrbvXEAJLh24aXL8", ad:"3000 Las Vegas Blvd S, Las Vegas, NV 89109"},
   {r:11, id:"the-strat", n:"The STRAT", spot:"West Entrance", desc:"Follow the signs to rideshare pickup.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/9r4ssDfgjxLBHw898", ad:"2000 Las Vegas Blvd S, Las Vegas, NV 89104"},
   {r:12, id:"virgin-hotels", n:"Virgin Hotels Las Vegas", spot:"Main Entrance", desc:"Just past the porte-cochère.", freq:"Every 30 minutes", g:"https://maps.app.goo.gl/kyfGYVPTgjaxTgPz5", ad:"4455 Paradise Rd, Las Vegas, NV 89169"},
-  {r:12, id:"planet-hollywood", n:"Planet Hollywood", spot:"Tour Bus Area", desc:"Take the escalators down to the hotel lobby area. Exit the lobby into the parking area and turn left. You’ll see direction signs for the bus and shuttle area.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/Axvra4ZELCGcWVCv8", video:"https://www.youtube.com/watch?v=w4Ti_e1hZo4", ad:"3667 Las Vegas Blvd S, Las Vegas, NV 89109"},
+  {r:12, id:"planet-hollywood", n:"Planet Hollywood", isNew:true, spot:"Tour Bus Area", desc:"Take the escalators down to the hotel lobby area. Exit the lobby into the parking area and turn left. You’ll see direction signs for the bus and shuttle area.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/Axvra4ZELCGcWVCv8", video:"https://www.youtube.com/watch?v=w4Ti_e1hZo4", ad:"3667 Las Vegas Blvd S, Las Vegas, NV 89109"},
   {r:13, id:"sams-town", n:"Sam's Town", spot:"Rear Entrance", desc:"The entrance outside the food court.", freq:"Hourly at 4:00, 5:00 and 6:00 PM", g:"https://maps.app.goo.gl/FxtZFBV3PzERtz429", ad:"5111 Boulder Hwy, Las Vegas, NV 89122"},
   {r:14, id:"silverton", n:"Silverton", spot:"Main Entrance", freq:"Every 30 minutes", g:"https://maps.app.goo.gl/swn2XjDzj9T3Tb1q9", ad:"3333 Blue Diamond Rd, Las Vegas, NV 89139"},
   {r:14, id:"south-point", n:"South Point", spot:"Main Entrance", desc:"Buses load just outside the porte-cochère.", freq:"Every 10–20 minutes", g:"https://maps.app.goo.gl/kVF5nACvRwX2SQW8A", ad:"9777 Las Vegas Blvd S, Las Vegas, NV 89183"}
@@ -384,6 +385,7 @@ const q2=s=>encodeURIComponent((s.oneway?"":s.n+" Las Vegas, ")+s.ad);
 const routes=[...new Set(STOPS.map(s=>s.r))];
 const badge=r=>`<div class="badge" aria-label="Route ${r}"><small>ROUTE</small><span>${r}</span></div>`;
 let query="",view="route";
+const NEWTAG=`<span class="new-tag">New stop</span>`;
 
 function home(){
   return `<div class="view">
@@ -476,14 +478,14 @@ function board(){
     const key=s=>norm(s.n.replace(/^The /,""));
     const list=STOPS.filter(match).sort((a,b)=>key(a).localeCompare(key(b)));
     const near=nearbyCards(q);
-    const html=(list.length?`<ul class="az" style="--rows:${Math.ceil(list.length/2)}">${list.map(s=>`<li><a href="#${s.id}">${badge(s.r)}<span><b>${esc(s.n)}</b><span>${esc(s.spot)}${s.oneway?" · One-way express shuttle":""}</span></span></a></li>`).join("")}</ul>`:"")+near;
+    const html=(list.length?`<ul class="az" style="--rows:${Math.ceil(list.length/2)}">${list.map(s=>`<li><a href="#${s.id}">${badge(s.r)}<span><b>${esc(s.n)}${s.isNew?NEWTAG:""}</b><span>${esc(s.spot)}${s.oneway?" · One-way express shuttle":""}</span></span></a></li>`).join("")}</ul>`:"")+near;
     return html||`<p class="empty">No pickup matches “${esc(query)}”. Try a shorter name, or ride from the pickup closest to where you're staying.</p>`;
   }
   const cards=routes.map(r=>{
     const g=STOPS.filter(s=>s.r===r&&(!q||norm(s.n+" "+s.spot).includes(q)||s.k.some(k=>norm(k).startsWith(q))));
     if(!g.length) return "";
     return `<div class="route">${badge(r)}<div style="min-width:0">${r===1?'<span class="tag">One-way express shuttle</span>':""}<ul>${g.map(s=>
-      `<li><a href="#${s.id}"><b>${esc(s.n)}</b><span>${esc(s.spot)}${s.note?" · "+esc(s.note):""}</span></a></li>`).join("")}</ul></div></div>`;
+      `<li><a href="#${s.id}"><b>${esc(s.n)}${s.isNew?NEWTAG:""}</b><span>${esc(s.spot)}${s.note?" · "+esc(s.note):""}</span></a></li>`).join("")}</ul></div></div>`;
   }).filter(Boolean);
   const near=nearbyCards(q);
   const html=(cards.length?`<div class="routes" style="--rows:${Math.ceil(cards.length/2)}">${cards.join("")}</div>`:"")+near;
